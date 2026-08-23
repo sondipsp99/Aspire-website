@@ -1,4 +1,4 @@
- document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('DOMContentLoaded', () => {
 
   // 1. Mobile Menu Drawer Toggle
   const burgerBtn = document.getElementById('burgerBtn');
@@ -104,7 +104,37 @@
     statsObserver.observe(statsSection);
   }
 
-  // 8. Lead Form Submission Toast Alert
+  // 8. Partner Certificate Lightbox
+  const certLightbox = document.getElementById('certLightbox');
+  const certLightboxImg = document.getElementById('certLightboxImg');
+  const certLightboxClose = document.getElementById('certLightboxClose');
+
+  window.openCertLightbox = (cardEl) => {
+    if (!certLightbox || !certLightboxImg) return;
+    const img = typeof cardEl === 'string' ? null : cardEl.querySelector('img');
+    if (img) {
+      certLightboxImg.src = img.src;
+      certLightboxImg.alt = img.alt || 'Partner certificate';
+    }
+    certLightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeCertLightbox = () => {
+    if (!certLightbox) return;
+    certLightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  };
+
+  certLightboxClose?.addEventListener('click', closeCertLightbox);
+  certLightbox?.addEventListener('click', (e) => {
+    if (e.target === certLightbox) closeCertLightbox();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeCertLightbox();
+  });
+
+  // 9. Lead Form Submission Toast Alert
   const leadForm = document.getElementById('leadForm');
   if (leadForm) {
     leadForm.addEventListener('submit', (e) => {
