@@ -1,4 +1,4 @@
-/* ============================================================
+ /* ============================================================
    DESIGN SYSTEM & VARIABLES
    ============================================================ */
 :root {
@@ -125,26 +125,29 @@ header.scrolled {
   background: rgba(255, 255, 255, 0.95);
   box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 }
-.nav { display: flex; align-items: center; justify-content: space-between; height: 76px; }
-.logo { display: flex; align-items: center; gap: 12px; }
+.nav { display: flex; align-items: center; justify-content: space-between; height: 76px; gap: 20px; }
+.logo { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
 .logo .mark {
-  width: 42px; height: 42px; border-radius: 10px;
+  width: 50px; height: 44px; border-radius: 10px;
   background: linear-gradient(135deg, var(--navy-900), var(--navy-700));
-  display: flex; align-items: center; justify-content: center;
-  color: var(--gold-400); font-family: var(--font-serif); font-weight: 700; font-size: 18px;
+  object-fit: cover; object-position: center;
+  box-shadow: 0 4px 14px rgba(10, 23, 44, 0.25);
+  flex-shrink: 0;
 }
 .logo-text { display: flex; flex-direction: column; }
-.brand-title { font-weight: 800; font-size: 18px; color: var(--navy-950); line-height: 1; }
+.brand-title { font-weight: 800; font-size: 18px; color: var(--navy-950); line-height: 1; white-space: nowrap; }
 .brand-sub { font-size: 12px; color: var(--gold-500); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
 
-.nav-links { display: flex; gap: 28px; }
-.nav-links a { font-size: 14.5px; font-weight: 600; color: var(--ink-soft); }
+/* Desktop nav links: single row, never wraps or overlaps other elements */
+.nav-links { display: flex; align-items: center; gap: 22px; flex-wrap: nowrap; margin-right: 28px; }
+.nav-links a { font-size: 14px; font-weight: 600; color: var(--ink-soft); white-space: nowrap; }
 .nav-links a:hover { color: var(--navy-950); }
 
-.nav-cta { display: flex; align-items: center; gap: 18px; }
-.nav-phone { display: flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 13px; font-weight: 600; color: var(--navy-900); }
-.burger { display: none; background: none; border: none; cursor: pointer; padding: 5px; }
+.nav-cta { display: flex; align-items: center; gap: 16px; flex-shrink: 0; margin-left: 12px; padding-left: 24px; border-left: 1px solid var(--border-light); }
+.nav-phone { display: flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 13px; font-weight: 600; color: var(--navy-900); white-space: nowrap; }
+.burger { display: none; background: none; border: none; cursor: pointer; padding: 5px; flex-shrink: 0; }
 .burger span { display: block; width: 24px; height: 2px; background: var(--navy-950); margin: 5px 0; transition: all 0.3s; }
+.nav-drawer-cta { display: none; }
 
 /* ============================================================
    HERO SECTION
@@ -257,6 +260,126 @@ header.scrolled {
 .why-card p { font-size: 14.5px; color: var(--ink-soft); line-height: 1.6; }
 
 /* ============================================================
+   ACCREDITATIONS / PARTNER CERTIFICATES
+   ============================================================ */
+.cert-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 22px; }
+.cert-grid-3 { grid-template-columns: repeat(3, 1fr); max-width: 980px; margin: 0 auto; }
+.cert-card {
+  background: var(--paper-card); padding: 22px 18px 20px; border-radius: var(--radius-md);
+  border: 1px solid var(--border-light); text-align: center; transition: all 0.3s ease; cursor: pointer;
+}
+.cert-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); border-color: var(--gold-500); }
+.cert-img-wrap {
+  aspect-ratio: 4 / 5; border-radius: 8px; overflow: hidden; margin-bottom: 14px;
+  background: #f1efe8; display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--border-light);
+}
+.cert-img-wrap img {
+  width: 100%; height: 100%; object-fit: cover; filter: grayscale(35%) contrast(1.02);
+  transition: filter 0.3s ease, transform 0.4s ease;
+}
+.cert-card:hover .cert-img-wrap img { filter: grayscale(0%); transform: scale(1.04); }
+.cert-img-wrap-doc {
+  aspect-ratio: 4 / 3; background: #fff; padding: 6px;
+}
+.cert-img-wrap-doc img {
+  object-fit: contain; filter: none; transition: transform 0.4s ease;
+}
+.cert-card:hover .cert-img-wrap-doc img { filter: none; transform: scale(1.03); }
+.cert-img-fallback { display: none; flex-direction: column; align-items: center; gap: 8px; color: var(--ink-soft); padding: 10px; }
+.cert-img-wrap.no-img img { display: none; }
+.cert-img-wrap.no-img .cert-img-fallback { display: flex; }
+.cert-img-fallback .cert-fallback-icon { font-size: 30px; }
+.cert-img-fallback span { font-size: 11.5px; line-height: 1.4; }
+.cert-card h4 { font-size: 14px; color: var(--navy-950); margin-bottom: 4px; line-height: 1.3; }
+.cert-card span { font-size: 12px; color: var(--ink-soft); }
+.cert-note { text-align: center; margin-top: 34px; font-size: 13.5px; color: var(--ink-soft); }
+
+/* Lightbox for enlarging a certificate on click */
+.cert-lightbox {
+  position: fixed; inset: 0; background: rgba(10, 23, 44, 0.92); z-index: 2000;
+  display: none; align-items: center; justify-content: center; padding: 40px; backdrop-filter: blur(4px);
+}
+.cert-lightbox.open { display: flex; }
+.cert-lightbox img { max-width: min(720px, 92vw); max-height: 82vh; border-radius: 10px; box-shadow: 0 30px 60px rgba(0,0,0,0.5); background: #fff; }
+.cert-lightbox-close {
+  position: absolute; top: 24px; right: 28px; width: 44px; height: 44px; border-radius: 50%;
+  background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff;
+  font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+.cert-lightbox-close:hover { background: rgba(255,255,255,0.2); }
+
+@media (max-width: 1024px) { .cert-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 640px) { .cert-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; } }
+@media (max-width: 800px) { .cert-grid-3 { grid-template-columns: 1fr; max-width: 420px; } }
+
+/* ============================================================
+   CEO / FOUNDER'S MESSAGE
+   ============================================================ */
+.ceo-grid {
+  display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 64px; align-items: center;
+}
+
+/* Photo side */
+.ceo-photo-wrap { position: relative; }
+.ceo-photo-frame {
+  position: relative; border-radius: var(--radius-lg); overflow: hidden;
+  background: linear-gradient(160deg, var(--navy-900), var(--navy-700));
+  aspect-ratio: 4 / 5; border: 1px solid var(--border-light);
+  box-shadow: 0 30px 60px rgba(10, 23, 44, 0.18);
+}
+.ceo-photo { width: 100%; height: 100%; object-fit: cover; display: block; position: relative; z-index: 1; }
+.ceo-photo-fallback {
+  display: none; position: absolute; inset: 0; align-items: center; justify-content: center;
+  font-family: var(--font-serif); font-weight: 700; font-size: 96px; color: var(--gold-400);
+  background: radial-gradient(circle at 50% 30%, var(--navy-800), var(--navy-950));
+}
+.ceo-photo-frame.no-img .ceo-photo { display: none; }
+.ceo-photo-frame.no-img .ceo-photo-fallback { display: flex; }
+.ceo-photo-frame::after {
+  content: ""; position: absolute; inset: 0; z-index: 2;
+  background: linear-gradient(0deg, rgba(10,23,44,0.55) 0%, rgba(10,23,44,0) 45%);
+  pointer-events: none;
+}
+.ceo-badge-float {
+  position: absolute; left: 50%; bottom: -28px; transform: translateX(-50%);
+  background: var(--paper-card); border: 1px solid var(--border-light); border-radius: var(--radius-md);
+  padding: 14px 22px; display: flex; align-items: center; gap: 12px; z-index: 3;
+  box-shadow: 0 20px 40px rgba(10, 23, 44, 0.12); white-space: nowrap;
+}
+.ceo-badge-icon { font-size: 24px; }
+.ceo-badge-float b { display: block; font-family: var(--font-serif); font-size: 15px; color: var(--navy-950); }
+.ceo-badge-float span { font-size: 11.5px; color: var(--ink-soft); }
+
+/* Content side */
+.ceo-content { padding-top: 12px; }
+.ceo-content h2 { font-size: clamp(28px, 3.2vw, 38px); margin-top: 8px; margin-bottom: 22px; }
+.ceo-quote {
+  font-family: var(--font-serif); font-style: italic; font-size: 19px; line-height: 1.65;
+  color: var(--navy-950); border-left: 3px solid var(--gold-500); padding-left: 22px; margin: 0 0 28px;
+}
+.ceo-welcome {
+  font-family: var(--font-serif); font-weight: 600; font-size: 21px; line-height: 1.5;
+  color: var(--navy-950); border-left: 3px solid var(--gold-500); padding-left: 22px; margin: 0 0 20px;
+}
+.ceo-letter { margin-bottom: 28px; }
+.ceo-letter p { font-size: 15px; color: var(--ink-soft); line-height: 1.75; margin-bottom: 16px; }
+.ceo-letter p:last-child { margin-bottom: 0; }
+.ceo-mission { background: var(--paper-card); border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 24px 26px; margin-bottom: 28px; }
+.ceo-mission h3 { font-size: 15px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--gold-500); margin-bottom: 8px; }
+.ceo-mission p { font-size: 15px; color: var(--ink-soft); line-height: 1.7; }
+
+.ceo-signature-row { display: flex; align-items: center; gap: 24px; padding-bottom: 26px; margin-bottom: 26px; border-bottom: 1px solid var(--border-light); }
+.ceo-signature { font-family: 'Playfair Display', serif; font-style: italic; font-size: 30px; color: var(--navy-900); }
+.ceo-name-block strong { display: block; font-size: 16px; color: var(--navy-950); }
+.ceo-name-block span { font-size: 13px; color: var(--ink-soft); }
+
+.ceo-creds { display: flex; gap: 32px; }
+.ceo-cred-item { flex: 1 1 auto; min-width: 100px; }
+.ceo-cred-item b { display: block; font-family: var(--font-serif); font-size: 26px; color: var(--navy-950); }
+.ceo-cred-item span { font-size: 12.5px; color: var(--ink-soft); }
+
+/* ============================================================
    DESTINATIONS TABS
    ============================================================ */
 .dest-tabs { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
@@ -266,6 +389,11 @@ header.scrolled {
   cursor: pointer; transition: all 0.25s ease;
 }
 .tab-btn:hover, .tab-btn.active { background: var(--gold-500); color: var(--navy-950); border-color: var(--gold-500); }
+.flag-icon {
+  width: 20px; height: 15px; object-fit: cover; border-radius: 3px; vertical-align: -2px;
+  margin-right: 7px; box-shadow: 0 0 0 1px rgba(255,255,255,0.25);
+}
+.tab-btn.active .flag-icon, .tab-btn:hover .flag-icon { box-shadow: 0 0 0 1px rgba(10,23,44,0.25); }
 
 .dest-panel { display: none; }
 .dest-panel.active { display: block; animation: fadeIn 0.4s ease; }
@@ -277,7 +405,9 @@ header.scrolled {
   border-radius: var(--radius-lg); padding: 48px; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 48px; align-items: center;
 }
 .dest-badge { font-family: var(--font-mono); font-size: 11px; background: var(--gold-500); color: var(--navy-950); padding: 4px 10px; border-radius: 4px; font-weight: 700; }
-.dest-info h3 { font-size: 32px; color: #fff; margin: 12px 0 16px; }
+.dest-info h3 { font-size: 32px; color: #fff; margin: 12px 0 16px; display: flex; align-items: flex-start; gap: 12px; }
+.flag-icon-lg { width: 34px; height: 25px; object-fit: cover; border-radius: 4px; box-shadow: 0 0 0 1px rgba(255,255,255,0.2), 0 4px 10px rgba(0,0,0,0.25); flex-shrink: 0; margin-top: 6px; }
+.flag-icon-sm { width: 16px; height: 12px; object-fit: cover; border-radius: 2px; vertical-align: -1px; margin-right: 6px; box-shadow: 0 0 0 1px rgba(255,255,255,0.15); }
 .dest-info p { color: rgba(255,255,255,0.75); margin-bottom: 24px; }
 .dest-list { margin-bottom: 32px; }
 .dest-list li { color: rgba(255,255,255,0.85); font-size: 15px; margin-bottom: 10px; padding-left: 20px; position: relative; }
@@ -402,6 +532,15 @@ footer { background: var(--navy-950); color: rgba(255,255,255,0.6); padding: 80p
 /* ============================================================
    RESPONSIVE DESIGN (MOBILE & TABLET)
    ============================================================ */
+
+/* Narrow desktop / small laptop: tighten the nav before it needs to collapse */
+@media (max-width: 1180px) {
+  .nav-links { gap: 15px; margin-right: 18px; }
+  .nav-links a { font-size: 13.3px; }
+  .nav-phone span { display: none; }
+  .nav-cta { padding-left: 16px; }
+}
+
 @media (max-width: 1024px) {
   .hero-grid { grid-template-columns: 1fr; text-align: center; }
   .hero p.lead { margin-left: auto; margin-right: auto; }
@@ -411,9 +550,15 @@ footer { background: var(--navy-950); color: rgba(255,255,255,0.6); padding: 80p
   .dest-panel-grid, .cta-grid { grid-template-columns: 1fr; gap: 32px; }
   .cta-box { padding: 36px 24px; }
   .foot-grid { grid-template-columns: repeat(2, 1fr); }
+  .ceo-grid { grid-template-columns: 1fr; gap: 56px; }
+  .ceo-photo-frame { max-width: 380px; margin: 0 auto; }
+  .ceo-badge-float { left: 50%; }
 }
 
-@media (max-width: 768px) {
+/* Tablet & mobile: collapse full nav into the slide-out drawer.
+   Switches earlier (992px) than before so the 7 nav links never
+   squeeze into / overlap the logo and CTA button on tablet widths. */
+@media (max-width: 992px) {
   .nav-links {
     position: fixed; top: 0; right: -100%; width: 80%; height: 100vh;
     background: var(--navy-950); flex-direction: column; padding: 100px 40px;
@@ -423,8 +568,21 @@ footer { background: var(--navy-950); color: rgba(255,255,255,0.6); padding: 80p
   .nav-links a { color: #fff; font-size: 18px; }
   .burger { display: block; z-index: 1000; }
   .nav-phone { display: none; }
+  .nav-cta { margin-left: 0; padding-left: 0; border-left: none; }
+  .nav-cta > .btn { display: none; }
+  .nav-drawer-cta { display: inline-flex; margin-top: 12px; width: 100%; }
+}
+
+@media (max-width: 768px) {
   .why-grid, .services-grid, .testi-grid { grid-template-columns: 1fr; }
+  .dest-info h3 { font-size: 24px; }
   .form-row { grid-template-columns: 1fr; }
   .foot-grid { grid-template-columns: 1fr; }
   .foot-bottom { flex-direction: column; gap: 16px; text-align: center; }
+  .ceo-quote { font-size: 17px; padding-left: 16px; }
+  .ceo-welcome { font-size: 18px; padding-left: 16px; }
+  .ceo-letter p { font-size: 14.5px; }
+  .ceo-signature-row { flex-wrap: wrap; gap: 16px; }
+  .ceo-creds { flex-wrap: wrap; gap: 20px; row-gap: 16px; }
+  .ceo-cred-item { flex: 1 1 40%; min-width: 130px; }
 }
