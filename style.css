@@ -507,6 +507,20 @@ header.scrolled {
 .form-note { font-size: 12px; color: var(--ink-soft); text-align: center; }
 
 /* FOOTER */
+/* footer { background: var(--navy-950); color: rgba(255,255,255,0.6); padding: 80px 0 30px; border-top: 1px solid rgba(255,255,255,0.08); }
+.foot-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.2fr; gap: 40px; padding-bottom: 60px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.foot-brand p { margin-top: 16px; font-size: 14px; line-height: 1.6; }
+.foot-col h4 { color: #fff; font-family: var(--font-body); font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px; }
+.foot-col ul li { margin-bottom: 12px; font-size: 14px; }
+.foot-col a:hover { color: var(--gold-400); }
+.foot-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 28px; font-size: 13px; }
+.social-links { display: flex; gap: 12px; }
+.social-links a {
+  width: 36px; height: 36px; border: 1px solid rgba(255,255,255,0.2); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #fff;
+} */
+
+/* FOOTER */
 footer { background: var(--navy-950); color: rgba(255,255,255,0.6); padding: 80px 0 30px; border-top: 1px solid rgba(255,255,255,0.08); }
 .foot-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.2fr; gap: 40px; padding-bottom: 60px; border-bottom: 1px solid rgba(255,255,255,0.08); }
 .foot-brand p { margin-top: 16px; font-size: 14px; line-height: 1.6; }
